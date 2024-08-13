@@ -1,0 +1,57 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        const evtSource = new EventSource("http://localhost:8080/products");
+
+        function start_sse_test() {
+
+            evtSource.onmessage = function (event) {
+                console.log(event);
+                const newElement = document.createElement("li");
+
+
+                var dataobj = JSON.parse(event.data);
+                console.log(dataobj);
+
+                newElement.textContent = "message: " + event.data;
+                eventList.appendChild(newElement);
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Demo SSE HTML File</h1>
+    View source for details<br>
+
+    <button onclick="start_sse_test();return false;">Start SSE Test</button>
+    <button onclick="eventList.innerHTML = '';return false;">Clear</button>
+
+    <ul id="list">
+    </ul>
+
+
+    <script>
+
+        const eventList = document.getElementById("list");
+    </script>
+
+    <div id="fatkun-drop-panel">
+        <a id="fatkun-drop-panel-close-btn">×</a>
+        <div id="fatkun-drop-panel-inner">
+            <div class="fatkun-content">
+
+                <div class="fatkun-title">Drag and Drop</div>
+                <div class="fatkun-desc">The image will be downloaded</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
